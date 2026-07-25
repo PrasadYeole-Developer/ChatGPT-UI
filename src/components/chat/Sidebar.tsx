@@ -20,7 +20,7 @@ export function Sidebar() {
   const [isDeletingChat, setIsDeletingChat] = useState<boolean>(false);
   const [editingChatId, setEditingChatId] = useState<string | null>(null);
   const [editingTitle, setEditingTitle] = useState<string>("");
-  const { chats, activeChat, setChats, setActiveChat, setMessages } = useChatStore();
+  const { chats, activeChat, setChats, setActiveChat, setMessages, isAiThinking, } = useChatStore();
   const filteredChats = chats.filter((chat) =>
     chat.title
       .toLowerCase()
@@ -181,6 +181,7 @@ export function Sidebar() {
                   setChatTitle("");
                 }
               }}
+              disabled={isAiThinking}
               className="flex-1 px-3 py-2 rounded-lg text-sm text-white outline-none placeholder:text-[#52616B] transition-all"
               style={{
                 backgroundColor: "rgba(82, 97, 107, 0.2)",
@@ -190,6 +191,7 @@ export function Sidebar() {
             />
             <button
               onClick={handleCreateNewChat}
+              disabled={isAiThinking}
               className="px-3 py-2 rounded-lg text-white text-sm font-medium cursor-pointer transition-colors"
               style={{ backgroundColor: "#52616B" }}
               onMouseEnter={(e) => {
@@ -205,6 +207,7 @@ export function Sidebar() {
         ) : (
           <button
             onClick={() => setIsCreatingChat(true)}
+            disabled={isAiThinking}
             className="w-full btn-primary-light py-2.5 text-sm font-semibold flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all cursor-pointer"
           >
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -216,6 +219,7 @@ export function Sidebar() {
         <input
           type="text"
           placeholder="Search chats..."
+          disabled={isAiThinking}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="
@@ -254,6 +258,7 @@ export function Sidebar() {
             >
               <button
                 onClick={() => handleSelectChat(chat.id)}
+                disabled={isAiThinking}
                 className={`flex-1 text-left px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 truncate cursor-pointer ${activeChat?.id === chat.id ? "border" : ""
                   }`}
                 title={chat.title}
@@ -286,6 +291,7 @@ export function Sidebar() {
                   <input
                     autoFocus
                     value={editingTitle}
+                    disabled={isAiThinking}
                     onChange={(e) =>
                       setEditingTitle(e.target.value)
                     }
@@ -315,6 +321,7 @@ export function Sidebar() {
                         setEditingChatId(chat.id);
                         setEditingTitle(chat.title);
                       }}
+                      disabled={isAiThinking}
                       className="opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0 p-1 rounded-lg hover:bg-white/10"
                       style={{
                         color: "#C9D6DF",
@@ -332,6 +339,7 @@ export function Sidebar() {
                   setSelectedChatId(chat.id);
                   setShowDeleteDialog(true);
                 }}
+                disabled={isAiThinking}
                 className="opacity-0 group-hover:opacity-100 transition-all duration-500 cursor-pointer shrink-0 p-2 rounded-lg hover:bg-red-300/10"
                 style={{
                   color: "#D97373",
@@ -364,7 +372,7 @@ export function Sidebar() {
 
           <button
             onClick={handleLogout}
-            disabled={isLoggingOut}
+            disabled={isLoggingOut || isAiThinking}
             className="w-full px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-2 cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
               backgroundColor: "rgba(159, 86, 86, 0.15)",
