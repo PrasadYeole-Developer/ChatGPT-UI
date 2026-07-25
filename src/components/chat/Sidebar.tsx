@@ -312,8 +312,11 @@ export function Sidebar() {
                     }}
                   />
                 ) : (
-                  <span className="block truncate flex items-center justify-between">
-                    {chat.title}
+                  <span className="flex items-center w-full">
+                    <span className="flex-1 truncate">
+                      {chat.title}
+                    </span>
+
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
@@ -322,7 +325,7 @@ export function Sidebar() {
                         setEditingTitle(chat.title);
                       }}
                       disabled={isAiThinking}
-                      className="opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0 p-1 rounded-lg hover:bg-white/10"
+                      className="ml-2 shrink-0 opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer p-1 rounded-lg hover:bg-white/10"
                       style={{
                         color: "#C9D6DF",
                       }}
