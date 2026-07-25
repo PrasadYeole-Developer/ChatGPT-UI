@@ -11,6 +11,7 @@ import { AuthInitializer } from './components/auth/AuthInitializer'
 import { ProtectedRoute } from './components/auth/ProtectedRoute'
 import { PublicRoute } from './components/auth/PublicRoute'
 import { registerSW } from 'virtual:pwa-register'
+import { Toaster } from 'sonner'
 
 registerSW();
 
@@ -24,6 +25,16 @@ createRoot(rootElement).render(
   <StrictMode>
     <BrowserRouter>
       <AuthInitializer />
+      <Toaster position="top-right" toastOptions={{
+        style: {
+          background: "#1A1F24",
+          color: "#F0F5F9",
+          border: "1px solid rgba(82, 97, 107, 0.4)",
+          borderRadius: "0.2rem",
+          fontSize: "14px",
+          fontWeight: "500",
+        },
+      }} />
       <Routes>
         <Route path="/" element={<App />} />
         <Route index element={<HomePage />} />

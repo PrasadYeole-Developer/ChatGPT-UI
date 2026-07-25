@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useChatStore } from "../../store/chat.store";
 import { socket } from "../../services/socket";
+import { toast } from "sonner";
 
 export function ChatInput() {
   const [message, setMessage] = useState<string>("");
@@ -12,7 +13,10 @@ export function ChatInput() {
 
     if (!message.trim()) return;
 
-    if (!activeChat) return;
+    if (!activeChat) {
+      toast("Please select a chat to start chatting.");
+      return;
+    }
 
     const messagePayload = {
       chat: activeChat.id,
